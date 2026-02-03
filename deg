@@ -1,0 +1,17 @@
+void messageReceived(String &topic, String &payload) {
+    float degree = payload.toFloat(); // รับค่า "90" จาก MQTT
+    long steps = (degree / 360.0) * 2048; // คำนวณเป็น Step (90 -> 512)
+    
+    Serial.print("Moving to: "); Serial.println(degree);
+    
+    stepper.moveTo(steps); // สั่งมอเตอร์ปักหมุดที่ 512 Step
+}
+
+void loop() {
+    client.loop();
+    
+    // สำคัญ: ต้องวางไว้ใน loop เพื่อให้มอเตอร์ทำงานตลอดเวลา
+    if (!isEmergency) {
+        stepper.run(); 
+    }
+}
