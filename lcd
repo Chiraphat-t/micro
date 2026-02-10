@@ -1,0 +1,35 @@
+
+lcd
+คำสั่ง,คำอธิบาย
+lcd.print(""Text"")  พิมพ์ข้อความ
+lcd.setCursor(0, 1)  ย้ายไปแถวที่ 2  //lcd.setCursor(15, 1);
+lcd.clear()  ลบทุกอย่างบนจอ
+lcd.display()  เปิดการแสดงผลตัวอักษร
+lcd.noDisplay()  ซ่อนตัวอักษร (แต่ข้อมูลยังอยู่)
+
+lcd.begin(): เริ่มต้นการทำงานของหน้าจอ (ต้องใส่ใน setup)
+lcd.backlight(): เปิดไฟพื้นหลังหน้าจอ
+lcd.noBacklight(): ปิดไฟพื้นหลัง (ช่วยประหยัดไฟ)
+lcd.clear(): ล้างหน้าจอทั้งหมดและเลื่อนเคอร์เซอร์ไปที่มุมซ้ายบน
+lcd.home(): เลื่อนเคอร์เซอร์กลับไปที่ (0, 0) โดยไม่ล้างข้อความเดิม
+2. การควบคุมตำแหน่ง (Positioning)
+
+#include <LCD_I2C.h>
+LCD_I2C lcd(0x27, 16, 2);
+
+void setup() {
+    lcd.begin();
+    lcd.backlight();
+    
+    // พิมพ์ข้อความที่ยาวกว่า 16 ตัวอักษร
+    lcd.setCursor(0, 0);
+    lcd.print("Welcome to ESP32 Project with LCD16x2 I2C!");
+}
+
+void loop() {
+    // สั่งให้หน้าจอเลื่อนไปทางซ้าย 1 ช่อง
+    lcd.scrollDisplayLeft();
+    
+    // หน่วงเวลา 300ms (ยิ่งน้อย ยิ่งวิ่งเร็ว)
+    delay(300);
+}
