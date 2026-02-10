@@ -12,6 +12,8 @@ lcd.backlight(): เปิดไฟพื้นหลังหน้าจอ
 lcd.noBacklight(): ปิดไฟพื้นหลัง (ช่วยประหยัดไฟ)
 lcd.clear(): ล้างหน้าจอทั้งหมดและเลื่อนเคอร์เซอร์ไปที่มุมซ้ายบน
 lcd.home(): เลื่อนเคอร์เซอร์กลับไปที่ (0, 0) โดยไม่ล้างข้อความเดิม
+lcd.scrollDisplayLeft(); //lcd.scrollDisplayRight();
+
 2. การควบคุมตำแหน่ง (Positioning)
 
 #include <LCD_I2C.h>
