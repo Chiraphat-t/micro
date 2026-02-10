@@ -35,3 +35,46 @@ void loop() {
     // หน่วงเวลา 300ms (ยิ่งน้อย ยิ่งวิ่งเร็ว)
     delay(300);
 }
+
+
+
+
+pwm// กำหนดขาใช้งาน
+const int motorPin1 = 26; // ขาควบคุมทิศทาง (ถ้ามี)
+const int motorPin2 = 27; // ขาควบคุมทิศทาง (ถ้ามี)
+const int enablePin = 14; // ขา PWM ที่ต่อเข้า Driver
+
+// ตั้งค่า PWM
+const int freq = 5000;    // ความถี่ 5kHz
+const int resolution = 8; // ความละเอียด 8 bit (0-255)
+
+void setup() {
+  pinMode(motorPin1, OUTPUT);
+  pinMode(motorPin2, OUTPUT);
+  
+  // ตั้งค่าขา PWM
+  ledcAttach(enablePin, freq, resolution); 
+
+  // กำหนดทิศทางให้มอเตอร์หมุนไปข้างหน้า
+  digitalWrite(motorPin1, HIGH);
+  digitalWrite(motorPin2, LOW);
+}
+
+void loop() {
+  // ค่อยๆ เร่งความเร็ว
+  for (int speed = 0; speed <= 255; speed++) {
+    ledcWrite(enablePin, speed);
+    delay(20);
+  }
+
+  // คงความเร็วสูงสุดไว้ 2 วินาที
+  delay(2000);
+
+  // ค่อยๆ ลดความเร็ว
+  for (int speed = 255; speed >= 0; speed--) {
+    ledcWrite(enablePin, speed);
+    delay(20);
+  }
+}
+
+
